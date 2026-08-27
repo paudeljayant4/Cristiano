@@ -4,7 +4,8 @@
  * Cinematic journey through Cristiano Ronaldo's legendary career
  */
 
-import { CR7_DATA } from './data/playerData.js';
+// Wait for data to load from playerData.js
+const CR7_DATA = window.CR7_DATA;
 
 const $ = (selector, parent = document) => parent.querySelector(selector);
 const $$ = (selector, parent = document) => parent.querySelectorAll(selector);
@@ -14,6 +15,11 @@ const $$ = (selector, parent = document) => parent.querySelectorAll(selector);
 // ============================================
 
 function generateHTML() {
+  if (!CR7_DATA) {
+    console.error('CR7_DATA not loaded');
+    return '';
+  }
+
   const { stats, eras, trophies, moments, international, meta } = CR7_DATA;
   
   const html = `
@@ -339,10 +345,10 @@ function generateHTML() {
         
         <div class="footer-meta">
           <p class="footer-disclaimer">
-            This is a fan-made tribute website. Not officially affiliated with Cristiano Ronaldo.
+            ${meta.disclaimer}
           </p>
           <p class="footer-credit">
-            Built as a creative showcase project
+            ${meta.credits}
           </p>
         </div>
       </div>
@@ -385,11 +391,11 @@ function init() {
 
 function initMenu() {
   const menuBtn = $('.menu');
-  const menuPanel = $('.menu-panel');
   
   if (!menuBtn) return;
   
   // Create menu panel if it doesn't exist
+  let menuPanel = $('.menu-panel');
   if (!menuPanel) {
     const panel = document.createElement('div');
     panel.className = 'menu-panel';
@@ -404,9 +410,8 @@ function initMenu() {
       <a href="#legacy">LEGACY</a>
     `;
     document.body.appendChild(panel);
+    menuPanel = panel;
   }
-  
-  const panel = $('.menu-panel');
   
   menuBtn.addEventListener('click', () => {
     const isOpen = document.body.classList.contains('menu-open');
@@ -427,7 +432,7 @@ function initMenu() {
     document.body.classList.toggle('menu-open', open);
     menuBtn.setAttribute('aria-expanded', String(open));
     menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-    if (panel) panel.setAttribute('aria-hidden', String(!open));
+    if (menuPanel) menuPanel.setAttribute('aria-hidden', String(!open));
   }
 }
 
@@ -439,14 +444,14 @@ function initInteractions() {
   // Magnetic buttons
   $$('[data-magnetic]').forEach(btn => {
     if (window.AnimationUtils) {
-      AnimationUtils.magneticButton(btn);
+      window.AnimationUtils.magneticButton(btn);
     }
   });
   
   // Parallax images
   $$('[data-parallax]').forEach(img => {
     if (window.AnimationUtils) {
-      AnimationUtils.parallax(img, {
+      window.AnimationUtils.parallax(img, {
         speed: 0.5
       });
     }
@@ -489,9 +494,6 @@ function initCounters() {
 // ============================================
 
 function initScrollEffects() {
-  // Navigation compact on scroll
-  let lastScrollY = 0;
-  
   window.addEventListener('scroll', () => {
     const nav = $('nav');
     if (nav) {
@@ -510,7 +512,6 @@ function initScrollEffects() {
     }
     
     updateScrollProgress();
-    lastScrollY = window.scrollY;
   }, { passive: true });
 }
 
@@ -588,9 +589,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Handle fast reload scenarios
 if (document.readyState === 'complete' || document.readyState === 'interactive') {
-  init();
-  setTimeout(() => {
-    initRevealObserver();
-    initNavTracking();
-  }, 500);
+  if (window.CR7_DATA) {
+    init();
+    setTimeout(() => {
+      initRevealObserver();
+      initNavTracking();
+    }, 500);
+  }
 }
