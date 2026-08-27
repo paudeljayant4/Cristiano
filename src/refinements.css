@@ -1,4 +1,722 @@
-/* Navigation and image-led editorial archive. */
-.navlinks a.current{opacity:1;color:var(--white)}.navlinks a.current:after{content:'';display:block;width:100%;height:1px;background:var(--red);margin-top:5px}.menu-panel{position:fixed;z-index:29;inset:0;background:#070707f5;display:flex;flex-direction:column;justify-content:center;padding:12vh 7vw;opacity:0;pointer-events:none;transform:translateY(-2%);transition:opacity .35s,transform .35s}.menu-panel p,.menu-panel small{font:10px 'DM Mono';letter-spacing:.14em;color:#918d86}.menu-panel p{margin:0 0 6vh}.menu-panel a{font:900 clamp(2.8rem,7vw,7rem)/.8 'Barlow Condensed';letter-spacing:-.04em;border-top:1px solid #ffffff25;padding:15px 0;display:flex;gap:18px;align-items:baseline}.menu-panel a:first-of-type{border-top:0}.menu-panel a span{color:var(--white)}.menu-panel a:not(:hover) span{color:#777}.menu-panel small{margin-top:6vh}.menu-open{overflow:hidden}.menu-open .menu-panel{opacity:1;pointer-events:auto;transform:none}.menu-open .menu span{font-size:0}.menu-open .menu span:after{content:'×';font-size:24px;color:var(--red)}
-.moments{padding:16vh 7vw;background:#11100f;overflow:hidden}.moments-heading{display:flex;justify-content:space-between;gap:40px;align-items:end;margin:4vh 0 9vh}.moments-heading p{font:10px 'DM Mono';letter-spacing:.12em;max-width:180px;line-height:1.7}.moments-heading h2{font:900 clamp(5rem,13vw,15rem)/.65 'Barlow Condensed';letter-spacing:-.07em;margin:0}.moment-grid{display:grid;grid-template-columns:1.15fr .85fr 1fr;gap:clamp(10px,2vw,26px);align-items:start}.moment{position:relative;margin:0;min-height:380px;overflow:hidden;background:#24211e}.moment:nth-child(2){margin-top:13vh}.moment:nth-child(3){margin-top:5vh}.moment img{display:block;width:100%;height:clamp(380px,42vw,680px);object-fit:cover;filter:grayscale(1) contrast(1.15);transition:transform .7s,filter .7s}.moment figcaption{position:absolute;inset:auto 0 0;padding:80px 24px 24px;background:linear-gradient(transparent,#080808e8);display:flex;flex-direction:column;gap:8px}.moment figcaption span{font:10px 'DM Mono';letter-spacing:.1em;color:#d2c2a4}.moment figcaption strong{font:800 clamp(1.5rem,2.5vw,3rem)/.8 'Barlow Condensed';letter-spacing:-.03em}.moment:hover img{transform:scale(1.06);filter:grayscale(.2) contrast(1.1)}
-@media(max-width:760px){.menu-panel{padding:12vh 9vw}.moments{padding:13vh 7vw}.moments-heading{display:block}.moments-heading p{margin:25px 0 0}.moment-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin-right:-7vw;padding-right:7vw;gap:12px}.moment{flex:0 0 75vw;min-height:0;scroll-snap-align:start}.moment:nth-child(2),.moment:nth-child(3){margin-top:0}.moment img{height:110vw}.moment figcaption{padding:65px 18px 18px}}
+/* ============================================
+   REFINEMENTS & POLISH
+   Advanced visual effects and micro-interactions
+   ============================================ */
+
+/* ============================================
+   GLASS MORPHISM & DEPTH
+   ============================================ */
+
+.stat,
+.trophy,
+.era-content {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Subtle glow effects */
+.hero-overlay::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(196, 161, 84, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ============================================
+   FILM GRAIN EFFECT
+   ============================================ */
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ============================================
+   GRADIENT TRANSITIONS
+   ============================================ */
+
+.numbers {
+  position: relative;
+}
+
+.numbers::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--red), transparent);
+}
+
+.numbers::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* ============================================
+   ENHANCED HOVER EFFECTS
+   ============================================ */
+
+.stat:hover {
+  box-shadow: 0 10px 40px rgba(188, 24, 39, 0.2);
+  backdrop-filter: blur(20px);
+}
+
+.trophy:hover {
+  box-shadow: 0 10px 40px rgba(196, 161, 84, 0.2);
+}
+
+.moment:hover .moment-overlay {
+  background: linear-gradient(180deg, transparent 0%, rgba(188, 24, 39, 0.5) 50%, rgba(0, 0, 0, 0.9) 100%);
+}
+
+/* ============================================
+   ADVANCED TYPOGRAPHY
+   ============================================ */
+
+.hero-title {
+  font-weight: 900;
+  text-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.8),
+    0 0 60px rgba(188, 24, 39, 0.3);
+}
+
+.bicho-final {
+  font-weight: 900;
+  text-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.8),
+    0 0 60px rgba(196, 161, 84, 0.4);
+  filter: drop-shadow(0 0 10px rgba(196, 161, 84, 0.3));
+}
+
+.celebration-title {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  text-shadow: 
+    0 0 40px rgba(188, 24, 39, 0.6),
+    0 0 80px rgba(188, 24, 39, 0.4);
+  filter: drop-shadow(0 0 20px rgba(188, 24, 39, 0.5));
+}
+
+/* ============================================
+   DYNAMIC BACKGROUND EFFECTS
+   ============================================ */
+
+.bicho::before {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.08;
+    filter: blur(40px);
+  }
+  50% {
+    opacity: 0.15;
+    filter: blur(60px);
+  }
+}
+
+/* ============================================
+   ENHANCED NAVIGATION
+   ============================================ */
+
+nav {
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+nav.compact {
+  box-shadow: 0 10px 60px rgba(0, 0, 0, 0.5);
+}
+
+.navlinks a::before {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--gold);
+  transition: width var(--transition-fast);
+}
+
+.navlinks a:hover::before {
+  width: 100%;
+}
+
+/* ============================================
+   STAT CARD ENHANCEMENTS
+   ============================================ */
+
+.stat::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.stat:hover::before {
+  opacity: 1;
+}
+
+.counter {
+  background: linear-gradient(135deg, var(--white) 0%, var(--gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: all var(--transition-normal);
+}
+
+.stat:hover .counter {
+  filter: drop-shadow(0 0 10px rgba(196, 161, 84, 0.5));
+}
+
+/* ============================================
+   SCROLL TRIGGER STYLES
+   ============================================ */
+
+.journey-timeline {
+  position: relative;
+}
+
+.journey-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--red), transparent);
+  opacity: 0.3;
+}
+
+/* ============================================
+   MOMENT CARD ENHANCEMENTS
+   ============================================ */
+
+.moment::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(196, 161, 84, 0.1) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  z-index: 4;
+  pointer-events: none;
+}
+
+.moment:hover::before {
+  opacity: 1;
+}
+
+.moment-caption {
+  transform: translateY(10px);
+  transition: transform var(--transition-normal);
+}
+
+.moment:hover .moment-caption {
+  transform: translateY(0);
+}
+
+/* ============================================
+   PORTAL EFFECTS
+   ============================================ */
+
+.era-image-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255, 242, 235, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.era:hover .era-image-wrapper::before {
+  opacity: 1;
+}
+
+/* ============================================
+   KINETIC TEXT EFFECTS
+   ============================================ */
+
+.intro-title,
+.bicho-title,
+.seven-title,
+.portugal-title,
+.legacy-title {
+  background: linear-gradient(90deg, var(--white) 0%, var(--gold) 50%, var(--white) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    background-position: 200% center;
+  }
+  50% {
+    background-position: -200% center;
+  }
+}
+
+/* ============================================
+   INTERACTIVE ELEMENTS
+   ============================================ */
+
+button,
+a,
+[role="button"] {
+  position: relative;
+  overflow: hidden;
+}
+
+button::before,
+a::before,
+[role="button"]::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(196, 161, 84, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+  pointer-events: none;
+}
+
+button:active::before,
+a:active::before,
+[role="button"]:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* ============================================
+   LUXURY SPACING & MARGINS
+   ============================================ */
+
+section {
+  position: relative;
+}
+
+section::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 242, 235, 0.1), transparent);
+}
+
+/* ============================================
+   VIGNETTE EFFECTS
+   ============================================ */
+
+.hero::after,
+.celebration::after,
+.final-scene::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* ============================================
+   IMAGE MASKING
+   ============================================ */
+
+.era-image,
+.celebration-image,
+.final-image,
+.portugal-image {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+}
+
+/* ============================================
+   ENHANCED TRANSITIONS
+   ============================================ */
+
+section {
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.era {
+  perspective: 1000px;
+}
+
+.era-image-wrapper {
+  transform-style: preserve-3d;
+}
+
+.era:hover .era-image-wrapper {
+  transform: rotateY(2deg) rotateX(-2deg);
+}
+
+/* ============================================
+   COLOR CORRECTION LAYERS
+   ============================================ */
+
+.hero-image,
+.portugal-image,
+.celebration-image,
+.final-image {
+  filter: contrast(1.1) saturate(1.05) brightness(0.95);
+  transition: filter var(--transition-normal);
+}
+
+.era:hover .era-image {
+  filter: contrast(1.15) saturate(1.1) brightness(1);
+}
+
+/* ============================================
+   FOCUS STATES
+   ============================================ */
+
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   SCROLL INDICATOR POLISH
+   ============================================ */
+
+.scroll-arrow {
+  opacity: 0.7;
+  transition: opacity var(--transition-normal);
+}
+
+.scroll-arrow:hover {
+  opacity: 1;
+}
+
+/* ============================================
+   LOADING POLISH
+   ============================================ */
+
+.loader {
+  animation: fade-out-loader 0.8s ease-in-out forwards;
+  animation-delay: 2.5s;
+}
+
+@keyframes fade-out-loader {
+  from {
+    opacity: 1;
+    visibility: visible;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* ============================================
+   SMOOTH SCROLL INDICATORS
+   ============================================ */
+
+.scroll-progress-bar {
+  box-shadow: 0 0 20px rgba(188, 24, 39, 0.5);
+  transition: box-shadow 0.3s ease-out;
+}
+
+/* ============================================
+   TROPHY CAROUSEL REFINEMENT
+   ============================================ */
+
+.trophy {
+  position: relative;
+  overflow: hidden;
+}
+
+.trophy::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+  transform: rotate(45deg);
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+/* ============================================
+   ARCHIVE GRID POLISH
+   ============================================ */
+
+.moment::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* ============================================
+   FOOTER REFINEMENT
+   ============================================ */
+
+.footer {
+  background: linear-gradient(180deg, var(--ink) 0%, rgba(17, 17, 17, 0.8) 100%);
+  border-top: 1px solid rgba(196, 161, 84, 0.2);
+  position: relative;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* ============================================
+   ACCESSIBILITY ENHANCEMENTS
+   ============================================ */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ============================================
+   DARK MODE CONSISTENCY
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+  
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--black);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--red);
+    border-radius: 5px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--gold);
+  }
+}
+
+/* ============================================
+   PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+
+/* Reduce animations for better performance */
+.era,
+.stat,
+.trophy,
+.moment {
+  will-change: transform;
+  contain: layout style paint;
+}
+
+/* Use transform for smooth animations */
+.scroll-arrow {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* ============================================
+   VISUAL POLISH: TEXT SHADOWS
+   ============================================ */
+
+.hero-meta {
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.era-title {
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.bicho-names {
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* ============================================
+   ENHANCED MENU OVERLAY
+   ============================================ */
+
+.menu-panel {
+  animation: slide-in 0.4s var(--ease-smooth) forwards;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.menu-panel a {
+  position: relative;
+  display: inline-block;
+}
+
+.menu-panel a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gold);
+  transition: width var(--transition-fast);
+}
+
+.menu-panel a:hover::after {
+  width: 100%;
+}
+
+/* ============================================
+   FINAL SCENE POLISH
+   ============================================ */
+
+.final-scene {
+  background: linear-gradient(135deg, var(--black) 0%, var(--ink) 100%);
+}
+
+.final-scene::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(196, 161, 84, 0.05) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ============================================
+   ADVANCED RESPONSIVE TWEAKS
+   ============================================ */
+
+@media (max-width: 768px) {
+  .journey-timeline::before {
+    display: none;
+  }
+  
+  .era {
+    gap: 1.5rem;
+  }
+  
+  .stats-grid {
+    gap: 1.5rem;
+  }
+  
+  .trophy {
+    padding: 1.5rem;
+  }
+  
+  section {
+    padding: 5vh 4vw;
+  }
+}
+
+/* ============================================
+   CHROMATIC ABERRATION (SUBTLE)
+   ============================================ */
+
+@supports (mix-blend-mode: screen) {
+  .celebration-title {
+    text-shadow: 
+      2px 0 0 rgba(188, 24, 39, 0.3),
+      -2px 0 0 rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* ============================================
+   CUSTOM PROPERTIES FOR DARK ELEMENTS
+   ============================================ */
+
+.intro::before,
+.numbers::before,
+.numbers::after,
+.journey-timeline::before {
+  opacity: 0.8;
+  transition: opacity var(--transition-normal);
+}
+
+section:hover .intro::before,
+section:hover .numbers::before,
+section:hover .numbers::after {
+  opacity: 1;
+}
+
+/* ============================================
+   FINAL POLISH: MICRO-INTERACTIONS
+   ============================================ */
+
+.stat:active {
+  transform: scale(0.98);
+}
+
+.trophy:active {
+  transform: scale(0.97);
+}
+
+.moment:active .moment-image {
+  filter: brightness(1.15);
+}
