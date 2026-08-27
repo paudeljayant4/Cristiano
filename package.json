@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "python3 -m http.server 4173",
-    "build": "node --check src/main.js && node -e \"for (const p of ['index.html','src/main.js','src/styles.css','src/data/playerData.js']) { if (!require('fs').existsSync(p)) throw Error(p) } console.log('Cinematic experience files verified.')\""
+    "build": "node --check src/main.js && node -e \"for (const p of ['index.html','src/main.js','src/styles.css','src/refinements.css','src/data/playerData.js']) { if (!require('fs').existsSync(p)) throw Error(p) } console.log('Cinematic experience files verified.')\""
   },
   "dependencies": {},
   "devDependencies": {}
