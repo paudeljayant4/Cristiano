@@ -1,6 +1,5 @@
-import { eras, stats, trophies } from './data/playerData.js';
+const { eras, stats, trophies } = window.CR7_DATA;
 const $ = (s, p=document) => p.querySelector(s);
-const escape = (value) => String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 const eraMarkup = eras.map((e,i)=>`<article class="era ${e.tone}"><img src="${e.image}" loading="lazy" alt="Atmospheric football scene placeholder for licensed imagery"><div class="era-shade"></div><div class="era-copy"><span>${e.year}</span><h3>${e.place}</h3><p>${e.title}</p><small>${e.copy}</small></div><i class="era-index">0${i+1}</i></article>`).join('');
 const statMarkup = stats.map((s,i)=>`<article class="stat reveal"><h2><span class="counter" data-value="${s.value}" data-suffix="${s.suffix}">0${s.suffix}</span></h2><div><h3>${s.label}</h3><p>${s.copy}</p></div><i>0${i+1}</i></article>`).join('');
 const trophyMarkup = trophies.map(([name,year],i)=>`<article><b>0${i+1}</b><span>✦</span><h3>${name}</h3><p>${year}</p></article>`).join('');
