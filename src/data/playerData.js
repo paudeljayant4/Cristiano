@@ -19,5 +19,10 @@ window.CR7_DATA = {
   ],
   trophies: [
     ['BALLON D’OR', '2008 · 2013 · 2014 · 2016 · 2017'], ['CHAMPIONS LEAGUE', '5 CROWNS'], ['EUROPEAN CHAMPION', 'PORTUGAL · 2016'], ['NATIONS LEAGUE', 'PORTUGAL · 2019'], ['THE KING OF EUROPE', '140+ GOALS']
+  ],
+  moments: [
+    { label: 'THE WALKOUT', detail: 'THE CALM BEFORE THE NOISE.', image: 'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?auto=format&fit=crop&w=1200&q=90', alt: 'Footballer walking out onto a stadium pitch' },
+    { label: 'THE FLOODLIGHTS', detail: 'NIGHTS BUILT FOR HISTORY.', image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1200&q=90', alt: 'Floodlit football stadium at night' },
+    { label: 'THE CROWD', detail: 'EVERY EYE ON SEVEN.', image: 'https://images.unsplash.com/photo-1487466365202-1afdb86c764e?auto=format&fit=crop&w=1200&q=90', alt: 'Football supporters watching a match' }
   ]
 };
