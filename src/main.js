@@ -1,25 +1,596 @@
-const { eras, stats, trophies, moments } = window.CR7_DATA;
-const $ = (s, p=document) => p.querySelector(s);
-const eraMarkup = eras.map((e,i)=>`<article class="era ${e.tone}"><img src="${e.image}" loading="lazy" alt="Atmospheric football scene placeholder for licensed imagery"><div class="era-shade"></div><div class="era-copy"><span>${e.year}</span><h3>${e.place}</h3><p>${e.title}</p><small>${e.copy}</small></div><i class="era-index">0${i+1}</i></article>`).join('');
-const statMarkup = stats.map((s,i)=>`<article class="stat reveal"><h2><span class="counter" data-value="${s.value}" data-suffix="${s.suffix}">0${s.suffix}</span></h2><div><h3>${s.label}</h3><p>${s.copy}</p></div><i>0${i+1}</i></article>`).join('');
-const trophyMarkup = trophies.map(([name,year],i)=>`<article><b>0${i+1}</b><span>✦</span><h3>${name}</h3><p>${year}</p></article>`).join('');
-const momentMarkup = moments.map((moment, i) => `<figure class="moment moment-${i + 1}"><img src="${moment.image}" loading="lazy" alt="${moment.alt}"><figcaption><span>0${i + 1} / ${moment.label}</span><strong>${moment.detail}</strong></figcaption></figure>`).join('');
-$('#root').innerHTML = `<div class="loader" aria-live="polite"><div class="loader-pulse"></div><div class="loader-mark">CR7</div><div class="loader-line"><i></i></div><div class="loader-meta"><span>LOADING THE PHENOMENON...</span><b>01</b></div></div><div class="grain"></div><div class="cursor" aria-hidden="true"></div><nav><a href="#top" class="brand">CR7</a><div class="navlinks"><a href="#journey">JOURNEY</a><a href="#numbers">NUMBERS</a><a href="#trophies">TROPHIES</a><a href="#portugal">PORTUGAL</a><a href="#legacy">LEGACY</a></div><button class="menu magnetic" type="button" aria-label="Open menu">MENU <span>+</span></button></nav><main><section id="top" class="hero"><img class="hero-image" src="https://images.unsplash.com/photo-1553778263-73a83bab9b0c?auto=format&fit=crop&w=2200&q=90" alt="Football stadium, visual placeholder for licensed Cristiano Ronaldo hero imagery"><div class="hero-vignette"></div><div class="hero-copy"><p>MADEIRA. <em>1985.</em></p><small>EVERY LEGEND HAS A BEGINNING.</small><strong>THIS ONE BEGAN WITH A BOY.</strong><h1>CRISTIANO<br>RONALDO</h1><b class="ghost-seven">07</b><div class="hero-end">THE PHENOMENON.</div></div><a class="scroll magnetic" href="#intro">SCROLL TO ENTER <span>↓</span></a></section><section id="intro" class="intro quiet"><p class="reveal">BEFORE THE TROPHIES.</p><p class="reveal muted">BEFORE THE RECORDS.</p><p class="reveal dim">BEFORE THE ROARS.</p><h2 class="reveal">THERE WAS JUST A BOY.<br><em>AND DESTINY COULDN'T RUN FAST ENOUGH.</em></h2></section><section id="journey" class="journey"><div class="chapter">ACT II — THE RISE</div><header><p>FROM MADEIRA TO THE WORLD.</p><h2>THE JOURNEY</h2></header><div class="era-track">${eraMarkup}</div></section><section class="bicho"><div class="bicho-build" aria-label="The boy. The player. The star. The machine."><span>THE BOY.</span><span>THE PLAYER.</span><span>THE STAR.</span><span>THE MACHINE.</span></div><div class="impact"><span>EL</span><strong>BICHO</strong></div><p>THE BEAST HAD ARRIVED.</p></section><section class="madrid"><div class="chapter">ACT IV — THE KING</div><div class="madrid-light"></div><p>THE STAGE WAS READY.</p><h2>MADRID.</h2><div class="madrid-number"><span class="counter" data-value="450" data-suffix="">0</span><span>GOALS</span></div><p class="madrid-rule">HE DIDN'T JUST PLAY IN MADRID.<br><b>HE RULED IT.</b></p></section><section class="champions quiet"><p>EUROPE.</p><p>THE LIGHTS.</p><p>THE NIGHTS.</p><h2>THE KING.</h2><small>THE CHAMPIONS LEAGUE HAD A KING.</small></section><section id="numbers" class="numbers"><div class="chapter">THE MONUMENTS</div>${statMarkup}</section><section class="failure quiet"><p>HE LOST.</p><p>HE CRIED.</p><p>HE FAILED.</p><p>HE WAS DOUBTED.</p><h2>HE RETURNED.</h2><small>EVERY TIME.</small></section><section class="machine"><div class="machine-ring" data-hover="CR7">7</div><div><p>ACT VI — THE MACHINE</p><h2>DISCIPLINE MADE HIM<br>IMMORTAL.</h2><p>NO DAYS OFF. &nbsp; NO EXCUSES.</p></div></section><section id="portugal" class="portugal"><div class="portugal-image"></div><div class="portugal-copy"><div class="chapter">ACT V — THE CAPTAIN</div><p>BEFORE THE RECORDS...</p><h2>THERE WAS<br><span>THE SHIRT.</span></h2><p>BEFORE THE LEGEND... THERE WAS THE CAPTAIN.</p><strong>FOR PORTUGAL.</strong></div></section><section class="seven quiet"><p>ONE NUMBER.</p><h2>7</h2><div>A NUMBER. <span>A SYMBOL.</span> A LEGACY.</div><b>CR7</b></section><section id="trophies" class="trophies"><div class="chapter">THE CABINET — DRAG</div><h2>THE<br>TROPHIES</h2><div class="trophy-rail">${trophyMarkup}</div></section><section class="siu"><p>AND THEN... YOU HEAR IT.</p><small>SIU.</small><h2>SIUUUUUUU</h2></section><section id="legacy" class="legacy"><div class="legacy-image"></div><div class="legacy-copy"><p>THE TEAMS CHANGED.</p><p>THE YEARS PASSED.</p><p>THE RECORDS GREW.</p><h2>BUT THE HUNGER<br><span>NEVER DID.</span></h2><h3>LEGACY.</h3></div></section><section class="final"><p>HE WAS THE BOY FROM MADEIRA.<br>HE WAS EL BICHO.<br>HE WAS THE MACHINE.<br>HE WAS THE CAPTAIN.<br>HE WAS THE PHENOMENON.</p><h2>CRISTIANO<br>RONALDO</h2><strong>THE STORY IS STILL BEING WRITTEN.</strong><span>1985 — ∞</span><small>LEGENDS DON'T END. THEY BECOME STORIES.</small></section></main><footer><b>CR7</b><span>THE PHENOMENON</span><p>This is an unofficial fan-made project and is not affiliated with Cristiano Ronaldo or his official organizations. Development imagery is replaceable placeholder material.</p></footer>`;
-$('.menu').insertAdjacentHTML('afterend', '<div class="menu-panel" id="site-menu" aria-hidden="true"><p>CR7 / INDEX</p><a href="#archive">01 <span>THE VISUAL ARCHIVE</span></a><a href="#journey">02 <span>THE JOURNEY</span></a><a href="#numbers">03 <span>THE NUMBERS</span></a><a href="#trophies">04 <span>THE TROPHIES</span></a><a href="#portugal">05 <span>PORTUGAL</span></a><a href="#legacy">06 <span>THE LEGACY</span></a><small>SELECT A CHAPTER TO CONTINUE.</small></div>');
-$('.navlinks').insertAdjacentHTML('beforeend', '<a href="#archive">ARCHIVE</a>');
-$('#intro').insertAdjacentHTML('afterend', `<section class="moments" id="archive"><div class="chapter">THE VISUAL ARCHIVE</div><div class="moments-heading"><p>THE PICTURES BETWEEN THE HEADLINES.</p><h2>IN<br>FOCUS.</h2></div><div class="moment-grid">${momentMarkup}</div></section>`);
-$('.menu').insertAdjacentHTML('afterend', '<div class="menu-panel" id="site-menu" aria-hidden="true"><p>CR7 / INDEX</p><a href="#journey">01 <span>THE JOURNEY</span></a><a href="#numbers">02 <span>THE NUMBERS</span></a><a href="#trophies">03 <span>THE TROPHIES</span></a><a href="#portugal">04 <span>PORTUGAL</span></a><a href="#legacy">05 <span>THE LEGACY</span></a><small>SELECT A CHAPTER TO CONTINUE.</small></div>');
-$('#trophies').insertAdjacentHTML('beforebegin', `<section class="moments"><div class="chapter">THE VISUAL ARCHIVE</div><div class="moments-heading"><p>THE PICTURES BETWEEN THE HEADLINES.</p><h2>IN<br>FOCUS.</h2></div><div class="moment-grid">${momentMarkup}</div></section>`);
-const loader = $('.loader'), progress = $('.loader-line i'), number = $('.loader-meta b'); let n=1; const loadTimer=setInterval(()=>{n=Math.min(100,n+(n<75?6:3));progress.style.width=n+'%';number.textContent=String(n).padStart(2,'0');if(n===100){clearInterval(loadTimer);setTimeout(()=>loader.classList.add('done'),330)}},65);
-const menu = $('.menu'), menuPanel = $('.menu-panel');
-const setMenu = open => { document.body.classList.toggle('menu-open', open); menu.setAttribute('aria-expanded', String(open)); menu.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); menuPanel.setAttribute('aria-hidden', String(!open)); };
-menu.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
-menuPanel.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setMenu(false)));
-addEventListener('keydown', event => { if (event.key === 'Escape') setMenu(false); });
-addEventListener('scroll',()=>{ $('nav').classList.toggle('compact',scrollY>80); const hero=$('.hero-image'); if(hero) hero.style.transform=`scale(${1+Math.min(scrollY,900)/9000})`; },{passive:true});
-const observer = new IntersectionObserver(entries=>entries.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('shown');if(e.target.classList.contains('counter')){const end=Number(e.target.dataset.value), suffix=e.target.dataset.suffix||'', start=performance.now();const tick=t=>{const p=Math.min((t-start)/1500,1);e.target.textContent=Math.floor(end*(1-(1-p)**3)).toLocaleString()+suffix;if(p<1)requestAnimationFrame(tick)};requestAnimationFrame(tick);observer.unobserve(e.target)}}),{threshold:.35});document.querySelectorAll('.reveal,.counter,.bicho-build span,.failure p,.failure h2,.champions p,.champions h2,.champions small').forEach(el=>observer.observe(el));
-if(matchMedia('(pointer:fine)').matches){const cursor=$('.cursor');addEventListener('pointermove',e=>{cursor.style.transform=`translate(${e.clientX}px,${e.clientY}px)`});document.querySelectorAll('a,button,.trophy-rail').forEach(el=>{el.addEventListener('mouseenter',()=>cursor.classList.add('active'));el.addEventListener('mouseleave',()=>cursor.classList.remove('active'))});document.querySelectorAll('.magnetic').forEach(el=>el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();el.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.12}px,${(e.clientY-r.top-r.height/2)*.12}px)`}));document.querySelectorAll('.magnetic').forEach(el=>el.addEventListener('pointerleave',()=>el.style.transform=''))}
-const navLinks = [...document.querySelectorAll('.navlinks a')];
-const navObserver = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) navLinks.forEach(link => link.classList.toggle('current', link.getAttribute('href') === `#${entry.target.id}`)); }), { rootMargin: '-40% 0px -50%', threshold: 0 });
-['archive', 'journey', 'numbers', 'trophies', 'portugal', 'legacy'].forEach(id => navObserver.observe($(`#${id}`)));
-['journey', 'numbers', 'trophies', 'portugal', 'legacy'].forEach(id => navObserver.observe($(`#${id}`)));
+/**
+ * CR7 — THE PHENOMENON
+ * Main Application Logic
+ * Cinematic journey through Cristiano Ronaldo's legendary career
+ */
+
+import { CR7_DATA } from './data/playerData.js';
+
+const $ = (selector, parent = document) => parent.querySelector(selector);
+const $$ = (selector, parent = document) => parent.querySelectorAll(selector);
+
+// ============================================
+// PAGE GENERATION
+// ============================================
+
+function generateHTML() {
+  const { stats, eras, trophies, moments, international, meta } = CR7_DATA;
+  
+  const html = `
+    <!-- LOADER SECTION -->
+    <section class="loader" aria-live="polite" role="status">
+      <div class="loader-container">
+        <div class="loader-pulse"></div>
+        <div class="loader-mark">CR7</div>
+        <div class="loader-meta">
+          <span>LOADING THE PHENOMENON...</span>
+          <b>00</b><span>%</span>
+        </div>
+        <div class="loader-line">
+          <i></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="hero" aria-labelledby="hero-title">
+      <img src="https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=1500&q=90" 
+           alt="Cristiano Ronaldo in action" class="hero-image" loading="eager">
+      <div class="hero-overlay"></div>
+      
+      <div class="hero-content">
+        <div class="hero-meta">
+          <span class="hero-year">PORTUGAL</span>
+          <span class="hero-dates">1985 — ∞</span>
+        </div>
+        
+        <h1 id="hero-title" class="hero-title">
+          <span class="hero-line">CRISTIANO</span>
+          <span class="hero-line">RONALDO</span>
+        </h1>
+        
+        <div class="hero-number" aria-hidden="true">07</div>
+        
+        <div class="hero-cta">
+          <p class="scroll-indicator">SCROLL TO ENTER</p>
+          <div class="scroll-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTRODUCTION SECTION -->
+    <section class="intro" id="intro" aria-labelledby="intro-title">
+      <div class="intro-container">
+        <h2 id="intro-title" class="intro-title" data-reveal>
+          THE PHENOMENON
+        </h2>
+        <p class="intro-subtitle" data-reveal>
+          MORE THAN A NUMBER
+        </p>
+        <p class="intro-text" data-reveal>
+          A BOY FROM MADEIRA.<br>
+          WHO DREAMED BIGGER THAN HIS ISLAND.<br>
+          WHO RAN TOWARD PRESSURE.<br>
+          WHO TURNED DOUBT INTO FUEL.<br>
+          WHO TURNED 7 INTO CR7.
+        </p>
+      </div>
+    </section>
+
+    <!-- JOURNEY SECTION -->
+    <section class="journey" id="journey" aria-labelledby="journey-title">
+      <div class="journey-header">
+        <h2 id="journey-title">THE JOURNEY</h2>
+        <p class="journey-subtitle">FROM MADEIRA TO THE WORLD</p>
+      </div>
+      
+      <div class="journey-timeline">
+        ${eras.map((era, index) => `
+          <article class="era era-${index}" data-reveal>
+            <div class="era-image-wrapper">
+              <img src="${era.image}" 
+                   alt="Cristiano Ronaldo in ${era.place}" 
+                   class="era-image" 
+                   loading="lazy">
+              <div class="era-overlay"></div>
+            </div>
+            
+            <div class="era-content">
+              <div class="era-year">${era.year}</div>
+              <h3 class="era-place">${era.place}</h3>
+              <h4 class="era-title">${era.title}</h4>
+              <p class="era-narrative">${era.narrative}</p>
+              <p class="era-copy">${era.copy}</p>
+            </div>
+          </article>
+        `).join('')}
+      </div>
+    </section>
+
+    <!-- EL BICHO SECTION -->
+    <section class="bicho" id="bicho" aria-labelledby="bicho-title">
+      <div class="bicho-container">
+        <div class="bicho-heartbeat" aria-hidden="true"></div>
+        <h2 id="bicho-title" class="bicho-title" data-reveal>
+          <span class="bicho-word">THEY</span>
+          <span class="bicho-word">CALLED</span>
+          <span class="bicho-word">HIM</span>
+        </h2>
+        <p class="bicho-names" data-reveal>
+          THE BOY • THE WINGER • THE STAR • THE MACHINE • THE KING • THE CAPTAIN
+        </p>
+        <h3 class="bicho-final" data-reveal>EL BICHO</h3>
+        <p class="bicho-subtitle" data-reveal>THE BEAST</p>
+      </div>
+    </section>
+
+    <!-- STATISTICS SECTION -->
+    <section class="numbers" id="numbers" aria-labelledby="numbers-title">
+      <div class="numbers-header">
+        <h2 id="numbers-title">THE NUMBERS</h2>
+        <p class="numbers-intro">MONUMENTS OF GREATNESS</p>
+      </div>
+      
+      <div class="numbers-grid">
+        ${stats.map((stat, index) => `
+          <article class="stat stat-${index}" data-reveal>
+            <div class="stat-number">
+              <h3 class="counter" data-value="${stat.value}" data-suffix="${stat.suffix}">
+                0${stat.suffix}
+              </h3>
+            </div>
+            <div class="stat-info">
+              <p class="stat-label">${stat.label}</p>
+              <p class="stat-copy">${stat.copy}</p>
+            </div>
+          </article>
+        `).join('')}
+      </div>
+    </section>
+
+    <!-- THE 7 SECTION -->
+    <section class="seven" id="seven" aria-labelledby="seven-title">
+      <div class="seven-container">
+        <div class="seven-number" aria-hidden="true">7</div>
+        <h2 id="seven-title" class="seven-title" data-reveal>
+          ONE NUMBER
+        </h2>
+        <div class="seven-journey">
+          ${eras.slice(0, 6).map(era => `
+            <div class="seven-era" data-reveal>
+              ${era.place}
+            </div>
+          `).join('')}
+        </div>
+        <p class="seven-text" data-reveal>
+          THE NUMBER BECAME THE BRAND
+        </p>
+        <h3 class="seven-final" data-reveal>CR7</h3>
+      </div>
+    </section>
+
+    <!-- PORTUGAL SECTION -->
+    <section class="portugal" id="portugal" aria-labelledby="portugal-title">
+      <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=1500&q=85" 
+           alt="Cristiano Ronaldo wearing Portugal jersey" 
+           class="portugal-image" 
+           loading="lazy">
+      <div class="portugal-overlay"></div>
+      
+      <div class="portugal-content">
+        <h2 id="portugal-title" class="portugal-title" data-reveal>PORTUGAL</h2>
+        <h3 class="portugal-subtitle" data-reveal>THE CAPTAIN</h3>
+        
+        <div class="portugal-stats">
+          <div class="portugal-stat" data-reveal>
+            <div class="portugal-stat-number">${international.apps}</div>
+            <p class="portugal-stat-label">APPEARANCES</p>
+          </div>
+          <div class="portugal-stat" data-reveal>
+            <div class="portugal-stat-number">${international.goals}</div>
+            <p class="portugal-stat-label">GOALS</p>
+          </div>
+          <div class="portugal-stat" data-reveal>
+            <div class="portugal-stat-number">${international.championships}</div>
+            <p class="portugal-stat-label">CHAMPIONSHIP</p>
+          </div>
+        </div>
+        
+        <p class="portugal-narrative" data-reveal>
+          ${international.narrative}
+        </p>
+      </div>
+    </section>
+
+    <!-- TROPHIES SECTION -->
+    <section class="trophies" id="trophies" aria-labelledby="trophies-title">
+      <div class="trophies-header">
+        <h2 id="trophies-title">THE TROPHIES</h2>
+        <p class="trophies-intro">MONUMENTS OF VICTORY</p>
+      </div>
+      
+      <div class="trophies-carousel">
+        ${trophies.map((trophy, index) => `
+          <article class="trophy" data-reveal>
+            <div class="trophy-number">0${index + 1}</div>
+            <div class="trophy-icon">✦</div>
+            <h3 class="trophy-name">${trophy.name}</h3>
+            <p class="trophy-years">${trophy.years}</p>
+            <p class="trophy-narrative">${trophy.narrative}</p>
+          </article>
+        `).join('')}
+      </div>
+    </section>
+
+    <!-- VISUAL ARCHIVE SECTION -->
+    <section class="archive" id="archive" aria-labelledby="archive-title">
+      <div class="archive-header">
+        <h2 id="archive-title">THE VISUAL ARCHIVE</h2>
+        <p class="archive-intro">THE PICTURES BETWEEN THE HEADLINES</p>
+      </div>
+      
+      <div class="archive-grid">
+        ${moments.map((moment, index) => `
+          <figure class="moment moment-${index}" data-reveal>
+            <img src="${moment.image}" 
+                 alt="${moment.alt}" 
+                 class="moment-image" 
+                 loading="lazy">
+            <div class="moment-overlay"></div>
+            <figcaption class="moment-caption">
+              <span class="moment-number">0${index + 1}</span>
+              <h4 class="moment-label">${moment.label}</h4>
+              <p class="moment-detail">${moment.detail}</p>
+            </figcaption>
+          </figure>
+        `).join('')}
+      </div>
+    </section>
+
+    <!-- CELEBRATION SECTION -->
+    <section class="celebration" id="celebration" aria-labelledby="celebration-title">
+      <div class="celebration-container">
+        <p class="celebration-intro" data-reveal>YOU KNOW WHAT COMES NEXT</p>
+        <h2 id="celebration-title" class="celebration-title" data-reveal>
+          SIUUUUUUUUUUUUUUUUU
+        </h2>
+        <img src="https://images.unsplash.com/photo-1553778263-73a83bab9b0c?auto=format&fit=crop&w=1500&q=85" 
+             alt="Cristiano Ronaldo celebrating" 
+             class="celebration-image" 
+             loading="lazy">
+      </div>
+    </section>
+
+    <!-- LEGACY SECTION -->
+    <section class="legacy" id="legacy" aria-labelledby="legacy-title">
+      <div class="legacy-container">
+        <h2 id="legacy-title" class="legacy-title" data-reveal>
+          THE LEGACY
+        </h2>
+        
+        <div class="legacy-montage">
+          ${eras.map((era, index) => `
+            <div class="legacy-image-wrapper" data-reveal>
+              <img src="${era.image}" 
+                   alt="Cristiano Ronaldo in ${era.year}" 
+                   class="legacy-image" 
+                   loading="lazy">
+              <span class="legacy-year">${era.year}</span>
+            </div>
+          `).join('')}
+        </div>
+        
+        <div class="legacy-text" data-reveal>
+          <p class="legacy-statement">
+            HE CHANGED TEAMS.<br>
+            HE CHANGED ERAS.<br>
+            HE CHANGED RECORD BOOKS.<br><br>
+            BUT HE NEVER CHANGED THE HUNGER.
+          </p>
+          <p class="legacy-final">
+            THAT IS THE LEGACY.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL SCENE -->
+    <section class="final-scene" id="final-scene" aria-labelledby="final-title">
+      <img src="https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=800&q=90" 
+           alt="Cristiano Ronaldo portrait" 
+           class="final-image" 
+           loading="lazy">
+      
+      <div class="final-content">
+        <h2 id="final-title" class="final-title" data-reveal>
+          <span>CRISTIANO</span>
+          <span>RONALDO</span>
+        </h2>
+        
+        <p class="final-dates" data-reveal>
+          1985 — ∞
+        </p>
+        
+        <p class="final-statement" data-reveal>
+          THE STORY IS STILL BEING WRITTEN
+        </p>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer" role="contentinfo">
+      <div class="footer-container">
+        <div class="footer-branding">
+          <p class="footer-logo">CR7</p>
+          <p class="footer-tagline">THE PHENOMENON</p>
+        </div>
+        
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="#hero">THE JOURNEY</a>
+          <a href="#numbers">THE NUMBERS</a>
+          <a href="#trophies">THE TROPHIES</a>
+          <a href="#portugal">PORTUGAL</a>
+          <a href="#legacy">LEGACY</a>
+        </nav>
+        
+        <div class="footer-meta">
+          <p class="footer-disclaimer">
+            This is a fan-made tribute website. Not officially affiliated with Cristiano Ronaldo.
+          </p>
+          <p class="footer-credit">
+            Built as a creative showcase project
+          </p>
+        </div>
+      </div>
+    </footer>
+  `;
+  
+  return html;
+}
+
+// ============================================
+// INITIALIZATION
+// ============================================
+
+function init() {
+  const root = $('#root');
+  if (!root) {
+    console.error('Root element not found');
+    return;
+  }
+  
+  // Generate and insert HTML
+  root.innerHTML = generateHTML();
+  
+  // Initialize menu
+  initMenu();
+  
+  // Initialize interactions
+  initInteractions();
+  
+  // Initialize scroll effects
+  initScrollEffects();
+  
+  // Update scroll progress
+  updateScrollProgress();
+}
+
+// ============================================
+// MENU FUNCTIONALITY
+// ============================================
+
+function initMenu() {
+  const menuBtn = $('.menu');
+  const menuPanel = $('.menu-panel');
+  
+  if (!menuBtn) return;
+  
+  // Create menu panel if it doesn't exist
+  if (!menuPanel) {
+    const panel = document.createElement('div');
+    panel.className = 'menu-panel';
+    panel.id = 'site-menu';
+    panel.setAttribute('aria-hidden', 'true');
+    panel.innerHTML = `
+      <p>CR7 / NAVIGATOR</p>
+      <a href="#hero">THE JOURNEY</a>
+      <a href="#numbers">THE NUMBERS</a>
+      <a href="#trophies">THE TROPHIES</a>
+      <a href="#portugal">PORTUGAL</a>
+      <a href="#legacy">LEGACY</a>
+    `;
+    document.body.appendChild(panel);
+  }
+  
+  const panel = $('.menu-panel');
+  
+  menuBtn.addEventListener('click', () => {
+    const isOpen = document.body.classList.contains('menu-open');
+    toggleMenu(!isOpen);
+  });
+  
+  // Close menu when link is clicked
+  $$('.menu-panel a').forEach(link => {
+    link.addEventListener('click', () => toggleMenu(false));
+  });
+  
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') toggleMenu(false);
+  });
+  
+  function toggleMenu(open) {
+    document.body.classList.toggle('menu-open', open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    if (panel) panel.setAttribute('aria-hidden', String(!open));
+  }
+}
+
+// ============================================
+// INTERACTIVE EFFECTS
+// ============================================
+
+function initInteractions() {
+  // Magnetic buttons
+  $$('[data-magnetic]').forEach(btn => {
+    if (window.AnimationUtils) {
+      AnimationUtils.magneticButton(btn);
+    }
+  });
+  
+  // Parallax images
+  $$('[data-parallax]').forEach(img => {
+    if (window.AnimationUtils) {
+      AnimationUtils.parallax(img, {
+        speed: 0.5
+      });
+    }
+  });
+  
+  // Counter animations on visible
+  initCounters();
+}
+
+function initCounters() {
+  const counters = $$('.counter[data-value]');
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.dataset.animated) {
+        const endValue = parseInt(entry.target.dataset.value);
+        const suffix = entry.target.dataset.suffix || '';
+        
+        let current = 0;
+        const increment = endValue / 60;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= endValue) {
+            current = endValue;
+            clearInterval(timer);
+          }
+          entry.target.textContent = Math.floor(current).toLocaleString() + suffix;
+        }, 30);
+        
+        entry.target.dataset.animated = 'true';
+      }
+    });
+  }, { threshold: 0.5 });
+  
+  counters.forEach(counter => observer.observe(counter));
+}
+
+// ============================================
+// SCROLL EFFECTS
+// ============================================
+
+function initScrollEffects() {
+  // Navigation compact on scroll
+  let lastScrollY = 0;
+  
+  window.addEventListener('scroll', () => {
+    const nav = $('nav');
+    if (nav) {
+      if (window.scrollY > 80) {
+        nav.classList.add('compact');
+      } else {
+        nav.classList.remove('compact');
+      }
+    }
+    
+    // Hero image zoom
+    const heroImg = $('.hero-image');
+    if (heroImg && window.scrollY < window.innerHeight) {
+      const scale = 1 + (window.scrollY / 9000);
+      heroImg.style.transform = `scale(${Math.min(scale, 1.15)})`;
+    }
+    
+    updateScrollProgress();
+    lastScrollY = window.scrollY;
+  }, { passive: true });
+}
+
+function updateScrollProgress() {
+  const scrollProgress = $('.scroll-progress-bar');
+  if (!scrollProgress) return;
+  
+  const height = document.documentElement.scrollHeight - window.innerHeight;
+  const scrolled = (window.scrollY / height) * 100;
+  scrollProgress.style.width = scrolled + '%';
+}
+
+// ============================================
+// OBSERVER FOR REVEAL ELEMENTS
+// ============================================
+
+function initRevealObserver() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  });
+  
+  $$('[data-reveal]').forEach(el => {
+    observer.observe(el);
+  });
+}
+
+// ============================================
+// ACTIVE NAV LINK TRACKING
+// ============================================
+
+function initNavTracking() {
+  const navLinks = $$('.navlinks a');
+  const sections = $$('section[id]');
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          const href = link.getAttribute('href');
+          if (href === '#' + entry.target.id) {
+            link.classList.add('current');
+          } else {
+            link.classList.remove('current');
+          }
+        });
+      }
+    });
+  }, {
+    threshold: 0.3
+  });
+  
+  sections.forEach(section => observer.observe(section));
+}
+
+// ============================================
+// STARTUP
+// ============================================
+
+document.addEventListener('DOMContentLoaded', () => {
+  init();
+  
+  // Initialize features after a small delay for animations setup
+  setTimeout(() => {
+    initRevealObserver();
+    initNavTracking();
+  }, 500);
+});
+
+// Handle fast reload scenarios
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+  init();
+  setTimeout(() => {
+    initRevealObserver();
+    initNavTracking();
+  }, 500);
+}
