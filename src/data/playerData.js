@@ -194,3 +194,8 @@ window.CR7_DATA = {
     year_current: 2024
   }
 };
+
+// Export for ES modules (if needed)
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { CR7_DATA: window.CR7_DATA };
+}
