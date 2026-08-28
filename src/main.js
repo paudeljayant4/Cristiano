@@ -543,7 +543,6 @@ function initCounters() {
 
 function initCursor() {
   const cursor = $('.cursor');
-  if (!cursor || !window.matchMedia?.('(pointer: fine)').matches) return;
   if (!cursor || !window.matchMedia('(pointer: fine)').matches) return;
 
   window.addEventListener('pointermove', event => {
@@ -568,7 +567,7 @@ function initScrollEffects() {
     if (ticking) return;
     ticking = true;
     window.requestAnimationFrame(() => {
-      const nav = $('nav');
+      const nav = $('.site-nav');
       if (nav) {
         if (window.scrollY > 80) {
           nav.classList.add('compact');

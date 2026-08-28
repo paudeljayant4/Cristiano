@@ -529,7 +529,7 @@ function initHeroAnimation() {
 // ============================================
 
 function initNavigation() {
-  const nav = document.querySelector('nav');
+  const nav = document.querySelector('.site-nav');
   if (!nav) return;
   
   gsap.set(nav, { opacity: 0, y: -20 });
