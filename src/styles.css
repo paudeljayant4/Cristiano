@@ -1602,6 +1602,7 @@ body.menu-open {
   /* Keep viewport-sized scenes stable while the browser chrome expands. */
   .hero {
     height: 100svh;
+    min-height: 32rem;
     padding: max(2rem, env(safe-area-inset-top)) 1.25rem max(2rem, env(safe-area-inset-bottom));
   }
 
