@@ -572,6 +572,20 @@ function initScrollEffects() {
   };
 
   window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+      // Hero image zoom
+      const heroImg = $('.hero-image');
+      if (heroImg && window.scrollY < window.innerHeight) {
+        const scale = 1 + (window.scrollY / 9000);
+        heroImg.style.transform = `scale(${Math.min(scale, 1.15)})`;
+      }
+
+      ticking = false;
+    });
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
 
       // Hero image zoom
       const heroImg = $('.hero-image');
