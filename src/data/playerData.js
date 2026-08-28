@@ -6,13 +6,13 @@
  */
 
 window.CR7_DATA = {
-  // Global statistics (verified & updateable)
+  // Global statistics — updated August 28, 2026
   stats: [
     { 
-      value: 890, 
-      suffix: '+', 
+      value: 977,
+      suffix: '',
       label: 'CAREER GOALS', 
-      copy: 'NINE HUNDRED MOMENTS WHEN THE NET HAD NO ANSWER.' 
+      copy: 'TWENTY-THREE AWAY FROM ONE THOUSAND.'
     },
     { 
       value: 5, 
@@ -180,8 +180,8 @@ window.CR7_DATA = {
 
   // International records
   international: {
-    apps: 198,
-    goals: 130,
+    apps: 233,
+    goals: 146,
     championships: 1,
     narrative: 'BEFORE HE WAS A LEGEND, HE WAS PORTUGUESE. AND BEFORE HE WAS A LEGEND, HE WAS A CAPTAIN.'
   },
@@ -191,7 +191,7 @@ window.CR7_DATA = {
     disclaimer: 'This is a fan-made tribute website. Not officially affiliated with Cristiano Ronaldo or any football organization.',
     credits: 'Built as a creative showcase project.',
     year_start: 1985,
-    year_current: 2024
+    year_current: 2026
   }
 };
 
