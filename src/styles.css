@@ -1586,6 +1586,113 @@ body.menu-open {
 }
 
 /* ============================================
+   SMALL-SCREEN LAYOUT SAFEGUARDS
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Keep viewport-sized scenes stable while the browser chrome expands. */
+  .hero {
+    height: 100svh;
+    min-height: 32rem;
+    padding: max(2rem, env(safe-area-inset-top)) 1.25rem max(2rem, env(safe-area-inset-bottom));
+  }
+
+  .intro,
+  .bicho,
+  .seven,
+  .portugal,
+  .celebration,
+  .final-scene {
+    min-height: 100svh;
+  }
+
+  .nav-container {
+    padding-top: max(1rem, env(safe-area-inset-top));
+    padding-left: max(4vw, env(safe-area-inset-left));
+    padding-right: max(4vw, env(safe-area-inset-right));
+  }
+
+  .hero-meta {
+    margin-bottom: 1.25rem;
+    font-size: 0.75rem;
+  }
+
+  .hero-cta {
+    bottom: max(1.5rem, env(safe-area-inset-bottom));
+    width: calc(100% - 2.5rem);
+  }
+
+  /* Long decorative words previously forced the page wider than the viewport. */
+  .celebration-title {
+    max-width: 100%;
+    font-size: clamp(2.25rem, 13vw, 4.5rem);
+    letter-spacing: 0.06em;
+    line-height: 0.9;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .bicho-names,
+  .journey-subtitle,
+  .numbers-intro,
+  .trophies-intro,
+  .archive-intro,
+  .footer-tagline {
+    letter-spacing: 0.1em;
+    overflow-wrap: anywhere;
+  }
+
+  .era > *,
+  .numbers-grid > *,
+  .trophies-carousel > *,
+  .archive-grid > *,
+  .legacy-montage > *,
+  .footer-container > * {
+    min-width: 0;
+  }
+
+  .era-content,
+  .moment-caption,
+  .trophy {
+    padding: 1.25rem;
+  }
+
+  .portugal-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .portugal-stat-number {
+    font-size: clamp(1.75rem, 9vw, 2.5rem);
+  }
+
+  .portugal-stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    overflow-wrap: anywhere;
+  }
+
+  .menu-panel {
+    padding: max(6rem, calc(env(safe-area-inset-top) + 4rem)) 6vw max(2rem, env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 360px) {
+  .hero-title {
+    font-size: clamp(2.5rem, 15vw, 3rem);
+  }
+
+  .seven-era {
+    padding: 0.75rem 1rem;
+  }
+
+  .portugal-stats {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+/* ============================================
    PRINT STYLES
    ============================================ */
 
