@@ -4,7 +4,13 @@
  * Reusable cinematic animation system
  */
 
-gsap.registerPlugin(ScrollTrigger);
+const animationEngine = window.gsap;
+const scrollTriggerPlugin = window.ScrollTrigger;
+const animationsAvailable = Boolean(animationEngine && scrollTriggerPlugin);
+
+if (animationsAvailable) {
+  animationEngine.registerPlugin(scrollTriggerPlugin);
+}
 
 // ============================================
 // ANIMATION UTILITIES
@@ -436,6 +442,7 @@ function initLoaderAnimation() {
   
   const loaderMark = document.querySelector('.loader-mark');
   const progress = document.querySelector('.loader-line i');
+  const percentage = document.querySelector('.loader-meta b');
   
   // Animate CR7 text
   gsap.from(loaderMark, {
@@ -450,6 +457,17 @@ function initLoaderAnimation() {
     width: '100%',
     duration: 2,
     ease: 'power1.inOut'
+  });
+
+  gsap.to({ value: 0 }, {
+    value: 100,
+    duration: 2,
+    ease: 'power1.inOut',
+    onUpdate() {
+      if (percentage) {
+        percentage.textContent = String(Math.round(this.targets()[0].value)).padStart(2, '0');
+      }
+    }
   });
   
   // Fade out loader
@@ -522,19 +540,6 @@ function initNavigation() {
     ease: 'power2.out'
   });
   
-  // Scroll progress indicator
-  gsap.to('.scroll-progress-bar', {
-    scaleX: 1,
-    scrollTrigger: {
-      trigger: 'body',
-      start: 'top top',
-      end: 'bottom bottom',
-      scrub: 0.5,
-      markers: false
-    },
-    transformOrigin: 'left center',
-    ease: 'none'
-  });
 }
 
 // ============================================
@@ -549,7 +554,6 @@ function initAllAnimations() {
         initLoaderAnimation();
         initNavigation();
         initHeroAnimation();
-        initScrollAnimations();
       }, 100);
     });
   } else {
@@ -557,13 +561,14 @@ function initAllAnimations() {
       initLoaderAnimation();
       initNavigation();
       initHeroAnimation();
-      initScrollAnimations();
     }, 100);
   }
 }
 
-// Auto-initialize
-initAllAnimations();
+// Auto-initialize only when the CDN-provided animation dependencies are ready.
+if (animationsAvailable) {
+  initAllAnimations();
+}
 
 // Export for manual use
-window.AnimationUtils = AnimationUtils;
+window.AnimationUtils = animationsAvailable ? AnimationUtils : undefined;
