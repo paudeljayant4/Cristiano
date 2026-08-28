@@ -42,7 +42,7 @@ window.CR7_DATA = {
       title: 'THE BOY FROM MADEIRA',
       narrative: 'BEFORE THE TROPHIES. BEFORE THE RECORDS. BEFORE THE ROARS. THERE WAS JUST A BOY. A BOY WHO RAN LIKE HE WAS CHASING DESTINY. AND DESTINY COULD NOT RUN FAST ENOUGH.',
       copy: 'A dream too large for the island.',
-      image: 'https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=1500&q=90',
+      image: 'https://imgs.search.brave.com/Jrs8b_bPW9aNL0InPA-al_r5iFr3SZMtivS5BJyJAJ8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/YWxsZm9vdGJhbGxh/cHAuY29tL3d3dy9N/MDAvNkUvQzcvNzIw/eC0vLS8tL3JCOENM/RjQ5Z1ZtQUk0QnpB/QVVHTldLSzRmVTA5/MS5qcGc',
       tone: 'origin'
     },
     { 
