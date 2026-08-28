@@ -41,7 +41,7 @@ function generateHTML() {
 
     <!-- HERO SECTION -->
     <section class="hero" id="hero" aria-labelledby="hero-title">
-      <img src="https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=1500&q=90" 
+      <img src="https://imgs.search.brave.com/Z0ovd0kXjHL852xjTxVp-TOiBiL4YU7JTkYHyWP1Y34/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJjYXZlLmNv/bS93cC93cDg2Nzgz/NjkuanBn" 
            alt="Cristiano Ronaldo in action" class="hero-image" loading="eager">
       <div class="hero-overlay"></div>
       
@@ -182,7 +182,7 @@ function generateHTML() {
 
     <!-- PORTUGAL SECTION -->
     <section class="portugal" id="portugal" aria-labelledby="portugal-title">
-      <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=1500&q=85" 
+      <img src="https://imgs.search.brave.com/79nwPz0a8unCbVPMIZJdDY4v2fh4t96AH4tqJt26QGE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzVlLzIx/Lzc1LzVlMjE3NTE5/OWU5NDViYzYxMmUw/MWQ0ZjY0NjRmZDcw/LmpwZw" 
            alt="Cristiano Ronaldo wearing Portugal jersey" 
            class="portugal-image" 
            loading="lazy">
@@ -265,7 +265,7 @@ function generateHTML() {
         <h2 id="celebration-title" class="celebration-title" data-reveal>
           SIUUUUUUUUUUUUUUUUU
         </h2>
-        <img src="https://images.unsplash.com/photo-1553778263-73a83bab9b0c?auto=format&fit=crop&w=1500&q=85" 
+        <img src="https://imgs.search.brave.com/2KwknB7w0hxF7XoVgyDze5z-kv6a3nk1v8mf0RxwUhk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJjYXZlLmNv/bS93cC93cDIwMDg0/NjAuanBn" 
              alt="Cristiano Ronaldo celebrating" 
              class="celebration-image" 
              loading="lazy">
@@ -307,7 +307,7 @@ function generateHTML() {
 
     <!-- FINAL SCENE -->
     <section class="final-scene" id="final-scene" aria-labelledby="final-title">
-      <img src="https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=800&q=90" 
+      <img src="https://imgs.search.brave.com/1SfVk6TxKlmCveCOLRrsxYbwODstqGSZ5ubj3xzcNUc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzk1L2Zh/L2Q0Lzk1ZmFkNGEw/OTI0MmIzNmMwOTQ0/ZDcxM2UxMjNlZWY2/LmpwZw" 
            alt="Cristiano Ronaldo portrait" 
            class="final-image" 
            loading="lazy">
@@ -513,6 +513,7 @@ function initCounters() {
 function initCursor() {
   const cursor = $('.cursor');
   if (!cursor || !window.matchMedia?.('(pointer: fine)').matches) return;
+  if (!cursor || !window.matchMedia('(pointer: fine)').matches) return;
 
   window.addEventListener('pointermove', event => {
     cursor.style.left = `${event.clientX}px`;
@@ -558,6 +559,42 @@ function initScrollEffects() {
 
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+
+      // Hero image zoom
+      const heroImg = $('.hero-image');
+      if (heroImg && window.scrollY < window.innerHeight) {
+        const scale = 1 + (window.scrollY / 9000);
+        heroImg.style.transform = `scale(${Math.min(scale, 1.15)})`;
+      }
+
+      ticking = false;
+    });
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+      // Hero image zoom
+      const heroImg = $('.hero-image');
+      if (heroImg && window.scrollY < window.innerHeight) {
+        const scale = 1 + (window.scrollY / 9000);
+        heroImg.style.transform = `scale(${Math.min(scale, 1.15)})`;
+      }
+
+      updateScrollProgress();
+      ticking = false;
+    });
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+}
+
+function updateScrollProgress() {
+  const scrollProgress = $('.scroll-progress-bar');
+  if (!scrollProgress) return;
+  
+  const height = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+  const scrolled = Math.min(Math.max((window.scrollY / height) * 100, 0), 100);
+  scrollProgress.style.width = scrolled + '%';
 }
 
 // ============================================
