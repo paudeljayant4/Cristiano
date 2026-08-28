@@ -432,7 +432,9 @@ function initMenu() {
   
   // Close on Escape key
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') toggleMenu(false);
+    if (e.key === 'Escape' && document.body.classList.contains('menu-open')) {
+      toggleMenu(false);
+    }
   });
   
   function toggleMenu(open) {
@@ -510,11 +512,13 @@ function initCounters() {
 
 function initCursor() {
   const cursor = $('.cursor');
+  if (!cursor || !window.matchMedia?.('(pointer: fine)').matches) return;
   if (!cursor || !window.matchMedia('(pointer: fine)').matches) return;
 
   window.addEventListener('pointermove', event => {
     cursor.style.left = `${event.clientX}px`;
     cursor.style.top = `${event.clientY}px`;
+    cursor.classList.add('cursor-visible');
   }, { passive: true });
 
   $$('a, button').forEach(element => {
@@ -541,6 +545,20 @@ function initScrollEffects() {
           nav.classList.remove('compact');
         }
       }
+
+      // Hero image zoom
+      const heroImg = $('.hero-image');
+      if (heroImg && window.scrollY < window.innerHeight) {
+        const scale = 1 + (window.scrollY / 9000);
+        heroImg.style.transform = `scale(${Math.min(scale, 1.15)})`;
+      }
+
+      ticking = false;
+    });
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
       // Hero image zoom
       const heroImg = $('.hero-image');
@@ -640,6 +658,11 @@ function initNavTracking() {
 
 function start() {
   init();
+
+  // Keep the document usable if the optional GSAP CDN scripts fail to load.
+  if (!window.gsap || !window.ScrollTrigger) {
+    $('.loader')?.remove();
+  }
   
   // Initialize features after a small delay for animations setup
   setTimeout(() => {

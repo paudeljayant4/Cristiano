@@ -1370,7 +1370,12 @@ nav.compact {
   z-index: 9998;
   transform: translate(-50%, -50%);
   display: none;
+  opacity: 0;
   transition: all 0.1s ease-out;
+}
+
+.cursor.cursor-visible {
+  opacity: 1;
 }
 
 .cursor.cursor-active {

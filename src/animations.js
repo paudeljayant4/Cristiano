@@ -4,7 +4,13 @@
  * Reusable cinematic animation system
  */
 
-gsap.registerPlugin(ScrollTrigger);
+const animationEngine = window.gsap;
+const scrollTriggerPlugin = window.ScrollTrigger;
+const animationsAvailable = Boolean(animationEngine && scrollTriggerPlugin);
+
+if (animationsAvailable) {
+  animationEngine.registerPlugin(scrollTriggerPlugin);
+}
 
 // ============================================
 // ANIMATION UTILITIES
@@ -559,8 +565,10 @@ function initAllAnimations() {
   }
 }
 
-// Auto-initialize
-initAllAnimations();
+// Auto-initialize only when the CDN-provided animation dependencies are ready.
+if (animationsAvailable) {
+  initAllAnimations();
+}
 
 // Export for manual use
-window.AnimationUtils = AnimationUtils;
+window.AnimationUtils = animationsAvailable ? AnimationUtils : undefined;
