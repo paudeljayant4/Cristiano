@@ -9,6 +9,7 @@ const CR7_DATA = window.CR7_DATA;
 
 const $ = (selector, parent = document) => parent.querySelector(selector);
 const $$ = (selector, parent = document) => parent.querySelectorAll(selector);
+let initialized = false;
 
 // ============================================
 // PAGE GENERATION
@@ -363,6 +364,8 @@ function generateHTML() {
 // ============================================
 
 function init() {
+  if (initialized) return;
+
   const root = $('#root');
   if (!root) {
     console.error('Root element not found');
@@ -371,18 +374,18 @@ function init() {
   
   // Generate and insert HTML
   root.innerHTML = generateHTML();
+  initialized = true;
   
   // Initialize menu
   initMenu();
   
   // Initialize interactions
   initInteractions();
+  initCursor();
   
   // Initialize scroll effects
   initScrollEffects();
   
-  // Update scroll progress
-  updateScrollProgress();
 }
 
 // ============================================
@@ -400,6 +403,9 @@ function initMenu() {
     const panel = document.createElement('div');
     panel.className = 'menu-panel';
     panel.id = 'site-menu';
+    panel.setAttribute('role', 'dialog');
+    panel.setAttribute('aria-modal', 'true');
+    panel.setAttribute('aria-label', 'Site navigation');
     panel.setAttribute('aria-hidden', 'true');
     panel.innerHTML = `
       <p>CR7 / NAVIGATOR</p>
@@ -412,6 +418,7 @@ function initMenu() {
     document.body.appendChild(panel);
     menuPanel = panel;
   }
+  menuBtn.setAttribute('aria-controls', menuPanel.id);
   
   menuBtn.addEventListener('click', () => {
     const isOpen = document.body.classList.contains('menu-open');
@@ -425,7 +432,9 @@ function initMenu() {
   
   // Close on Escape key
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') toggleMenu(false);
+    if (e.key === 'Escape' && document.body.classList.contains('menu-open')) {
+      toggleMenu(false);
+    }
   });
   
   function toggleMenu(open) {
@@ -433,6 +442,11 @@ function initMenu() {
     menuBtn.setAttribute('aria-expanded', String(open));
     menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     if (menuPanel) menuPanel.setAttribute('aria-hidden', String(!open));
+    if (open) {
+      menuPanel.querySelector('a')?.focus();
+    } else {
+      menuBtn.focus();
+    }
   }
 }
 
@@ -463,6 +477,12 @@ function initInteractions() {
 
 function initCounters() {
   const counters = $$('.counter[data-value]');
+  if (!('IntersectionObserver' in window)) {
+    counters.forEach(counter => {
+      counter.textContent = Number(counter.dataset.value).toLocaleString() + (counter.dataset.suffix || '');
+    });
+    return;
+  }
   
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -482,6 +502,7 @@ function initCounters() {
         }, 30);
         
         entry.target.dataset.animated = 'true';
+        observer.unobserve(entry.target);
       }
     });
   }, { threshold: 0.5 });
@@ -489,39 +510,54 @@ function initCounters() {
   counters.forEach(counter => observer.observe(counter));
 }
 
+function initCursor() {
+  const cursor = $('.cursor');
+  if (!cursor || !window.matchMedia?.('(pointer: fine)').matches) return;
+
+  window.addEventListener('pointermove', event => {
+    cursor.style.left = `${event.clientX}px`;
+    cursor.style.top = `${event.clientY}px`;
+    cursor.classList.add('cursor-visible');
+  }, { passive: true });
+
+  $$('a, button').forEach(element => {
+    element.addEventListener('pointerenter', () => cursor.classList.add('cursor-active'));
+    element.addEventListener('pointerleave', () => cursor.classList.remove('cursor-active'));
+  });
+}
+
 // ============================================
 // SCROLL EFFECTS
 // ============================================
 
 function initScrollEffects() {
-  window.addEventListener('scroll', () => {
-    const nav = $('nav');
-    if (nav) {
-      if (window.scrollY > 80) {
-        nav.classList.add('compact');
-      } else {
-        nav.classList.remove('compact');
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(() => {
+      const nav = $('nav');
+      if (nav) {
+        if (window.scrollY > 80) {
+          nav.classList.add('compact');
+        } else {
+          nav.classList.remove('compact');
+        }
       }
-    }
-    
-    // Hero image zoom
-    const heroImg = $('.hero-image');
-    if (heroImg && window.scrollY < window.innerHeight) {
-      const scale = 1 + (window.scrollY / 9000);
-      heroImg.style.transform = `scale(${Math.min(scale, 1.15)})`;
-    }
-    
-    updateScrollProgress();
-  }, { passive: true });
-}
 
-function updateScrollProgress() {
-  const scrollProgress = $('.scroll-progress-bar');
-  if (!scrollProgress) return;
-  
-  const height = document.documentElement.scrollHeight - window.innerHeight;
-  const scrolled = (window.scrollY / height) * 100;
-  scrollProgress.style.width = scrolled + '%';
+      // Hero image zoom
+      const heroImg = $('.hero-image');
+      if (heroImg && window.scrollY < window.innerHeight) {
+        const scale = 1 + (window.scrollY / 9000);
+        heroImg.style.transform = `scale(${Math.min(scale, 1.15)})`;
+      }
+
+      ticking = false;
+    });
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 }
 
 // ============================================
@@ -529,10 +565,15 @@ function updateScrollProgress() {
 // ============================================
 
 function initRevealObserver() {
+  if (!('IntersectionObserver' in window)) {
+    $$('[data-reveal]').forEach(el => el.classList.add('revealed'));
+    return;
+  }
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
       }
     });
   }, {
@@ -552,6 +593,7 @@ function initRevealObserver() {
 function initNavTracking() {
   const navLinks = $$('.navlinks a');
   const sections = $$('section[id]');
+  if (!('IntersectionObserver' in window)) return;
   
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -577,23 +619,23 @@ function initNavTracking() {
 // STARTUP
 // ============================================
 
-document.addEventListener('DOMContentLoaded', () => {
+function start() {
   init();
+
+  // Keep the document usable if the optional GSAP CDN scripts fail to load.
+  if (!window.gsap || !window.ScrollTrigger) {
+    $('.loader')?.remove();
+  }
   
   // Initialize features after a small delay for animations setup
   setTimeout(() => {
     initRevealObserver();
     initNavTracking();
   }, 500);
-});
+}
 
-// Handle fast reload scenarios
-if (document.readyState === 'complete' || document.readyState === 'interactive') {
-  if (window.CR7_DATA) {
-    init();
-    setTimeout(() => {
-      initRevealObserver();
-      initNavTracking();
-    }, 500);
-  }
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', start, { once: true });
+} else {
+  start();
 }

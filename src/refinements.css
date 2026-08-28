@@ -446,15 +446,6 @@ button:focus-visible,
 }
 
 /* ============================================
-   SMOOTH SCROLL INDICATORS
-   ============================================ */
-
-.scroll-progress-bar {
-  box-shadow: 0 0 20px rgba(188, 24, 39, 0.5);
-  transition: box-shadow 0.3s ease-out;
-}
-
-/* ============================================
    TROPHY CAROUSEL REFINEMENT
    ============================================ */
 
