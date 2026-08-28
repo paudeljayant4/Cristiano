@@ -195,6 +195,25 @@ nav.compact {
   background: rgba(7, 7, 7, 0.95);
 }
 
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 10000;
+  pointer-events: none;
+  background: rgba(255, 242, 235, 0.08);
+}
+
+.scroll-progress-bar {
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--red), var(--gold));
+  box-shadow: 0 0 16px rgba(196, 161, 84, 0.45);
+  transition: width 0.12s linear;
+}
+
 .nav-container {
   display: flex;
   align-items: center;
