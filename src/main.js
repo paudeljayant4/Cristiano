@@ -559,42 +559,6 @@ function initScrollEffects() {
 
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
-
-      // Hero image zoom
-      const heroImg = $('.hero-image');
-      if (heroImg && window.scrollY < window.innerHeight) {
-        const scale = 1 + (window.scrollY / 9000);
-        heroImg.style.transform = `scale(${Math.min(scale, 1.15)})`;
-      }
-
-      ticking = false;
-    });
-  };
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-
-      // Hero image zoom
-      const heroImg = $('.hero-image');
-      if (heroImg && window.scrollY < window.innerHeight) {
-        const scale = 1 + (window.scrollY / 9000);
-        heroImg.style.transform = `scale(${Math.min(scale, 1.15)})`;
-      }
-
-      updateScrollProgress();
-      ticking = false;
-    });
-  };
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-}
-
-function updateScrollProgress() {
-  const scrollProgress = $('.scroll-progress-bar');
-  if (!scrollProgress) return;
-  
-  const height = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
-  const scrolled = Math.min(Math.max((window.scrollY / height) * 100, 0), 100);
-  scrollProgress.style.width = scrolled + '%';
 }
 
 // ============================================
