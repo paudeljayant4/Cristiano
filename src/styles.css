@@ -274,22 +274,6 @@ nav.compact {
   transform: rotate(-45deg) translate(7px, -7px);
 }
 
-.scroll-progress {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: var(--gray-mid);
-}
-
-.scroll-progress-bar {
-  height: 100%;
-  background: linear-gradient(90deg, var(--red), var(--gold));
-  width: 0%;
-  transition: width 0.1s linear;
-}
-
 /* ============================================
    HERO SECTION
    ============================================ */

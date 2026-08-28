@@ -386,8 +386,6 @@ function init() {
   // Initialize scroll effects
   initScrollEffects();
   
-  // Update scroll progress
-  updateScrollProgress();
 }
 
 // ============================================
