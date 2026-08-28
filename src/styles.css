@@ -285,6 +285,10 @@ nav.compact {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(188, 24, 39, 0.35), transparent 32%),
+    radial-gradient(circle at 50% 58%, rgba(196, 161, 84, 0.2), transparent 34%),
+    linear-gradient(135deg, #120507 0%, var(--black) 48%, #0d0a05 100%);
 }
 
 .hero-image {
@@ -296,6 +300,10 @@ nav.compact {
   object-fit: cover;
   object-position: center;
   z-index: 1;
+}
+
+.hero-image.image-failed {
+  display: none;
 }
 
 .hero-overlay {

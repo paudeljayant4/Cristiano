@@ -4,8 +4,26 @@
  * Cinematic journey through Cristiano Ronaldo's legendary career
  */
 
-// Wait for data to load from playerData.js
-const CR7_DATA = window.CR7_DATA;
+// Use the data file when it loads, but keep a small local fallback so the
+// experience never renders as a blank page if that script is unavailable.
+const FALLBACK_CR7_DATA = {
+  stats: [],
+  eras: [],
+  trophies: [],
+  moments: [],
+  international: {
+    apps: '—',
+    goals: '—',
+    championships: '—',
+    narrative: 'THE STORY IS STILL BEING WRITTEN.'
+  },
+  meta: {
+    disclaimer: 'This is a fan-made tribute website.',
+    credits: 'Built as a creative showcase project.'
+  }
+};
+
+const CR7_DATA = window.CR7_DATA || FALLBACK_CR7_DATA;
 
 const $ = (selector, parent = document) => parent.querySelector(selector);
 const $$ = (selector, parent = document) => parent.querySelectorAll(selector);
@@ -16,11 +34,6 @@ let initialized = false;
 // ============================================
 
 function generateHTML() {
-  if (!CR7_DATA) {
-    console.error('CR7_DATA not loaded');
-    return '';
-  }
-
   const { stats, eras, trophies, moments, international, meta } = CR7_DATA;
   
   const html = `
@@ -380,6 +393,7 @@ function init() {
   initMenu();
   
   // Initialize interactions
+  initImageFallbacks();
   initInteractions();
   initCursor();
   
@@ -448,6 +462,23 @@ function initMenu() {
       menuBtn.focus();
     }
   }
+}
+
+// ============================================
+// IMAGE FALLBACKS
+// ============================================
+
+function initImageFallbacks() {
+  $$('img').forEach(image => {
+    if (image.complete && image.naturalWidth === 0) {
+      image.classList.add('image-failed');
+      return;
+    }
+
+    image.addEventListener('error', () => {
+      image.classList.add('image-failed');
+    }, { once: true });
+  });
 }
 
 // ============================================
@@ -559,42 +590,6 @@ function initScrollEffects() {
 
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
-
-      // Hero image zoom
-      const heroImg = $('.hero-image');
-      if (heroImg && window.scrollY < window.innerHeight) {
-        const scale = 1 + (window.scrollY / 9000);
-        heroImg.style.transform = `scale(${Math.min(scale, 1.15)})`;
-      }
-
-      ticking = false;
-    });
-  };
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-
-      // Hero image zoom
-      const heroImg = $('.hero-image');
-      if (heroImg && window.scrollY < window.innerHeight) {
-        const scale = 1 + (window.scrollY / 9000);
-        heroImg.style.transform = `scale(${Math.min(scale, 1.15)})`;
-      }
-
-      updateScrollProgress();
-      ticking = false;
-    });
-  };
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-}
-
-function updateScrollProgress() {
-  const scrollProgress = $('.scroll-progress-bar');
-  if (!scrollProgress) return;
-  
-  const height = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
-  const scrolled = Math.min(Math.max((window.scrollY / height) * 100, 0), 100);
-  scrollProgress.style.width = scrolled + '%';
 }
 
 // ============================================
