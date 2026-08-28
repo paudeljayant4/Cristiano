@@ -17,7 +17,7 @@ Every section flows like a scene from a movie. Every animation is intentional. E
 - **Premium Visual Hierarchy** — Bold typography, dramatic imagery, strategic use of space
 - **Film-Like Transitions** — Smooth fades, black wipes, masked reveals between sections
 - **Atmospheric Layers** — Film grain, vignettes, subtle glows, color overlays
-- **Responsive to Scroll** — Hero images zoom, navigation compacts, progress bar animates
+- **Responsive to Scroll** — Hero images zoom and navigation compacts
 
 ### Dynamic Sections
 - **Loader** — Cinematic opening sequence with progress indication
@@ -130,7 +130,7 @@ Simply edit the values in `playerData.js` before publishing:
 
 ```javascript
 stats: [
-  { value: 890, suffix: '+', label: 'CAREER GOALS', copy: '...' },
+  { value: 977, suffix: '', label: 'CAREER GOALS', copy: '...' },
   // Update these numbers as records change
 ]
 ```
