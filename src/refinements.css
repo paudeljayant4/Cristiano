@@ -139,11 +139,11 @@ body::before {
    ENHANCED NAVIGATION
    ============================================ */
 
-nav {
+.site-nav {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
 
-nav.compact {
+.site-nav.compact {
   box-shadow: 0 10px 60px rgba(0, 0, 0, 0.5);
 }
 

@@ -178,7 +178,7 @@ button {
    NAVIGATION
    ============================================ */
 
-nav {
+.site-nav {
   position: fixed;
   top: 0;
   left: 0;
@@ -190,7 +190,7 @@ nav {
   transition: all var(--transition-fast);
 }
 
-nav.compact {
+.site-nav.compact {
   padding: 0.75rem 0;
   background: rgba(7, 7, 7, 0.95);
 }
@@ -1590,7 +1590,7 @@ body.menu-open {
    ============================================ */
 
 @media print {
-  nav, .menu, .loader, .footer {
+  .site-nav, .menu, .loader, .footer {
     display: none;
   }
 }
